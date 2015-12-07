@@ -21,7 +21,7 @@ public class GroupDAO extends BaseDAO {
 
 	private static Logger log = LogManager.getLogger(GroupDAO.class);
 	private String CREATE_GROUP = "INSERT INTO groups (name, year) VALUES (?, ?);";
-	private String GET_ALL_GROUPS = "SELECT * from GROUPS ORDER BY name;";
+	private String GET_ALL_GROUPS = "SELECT * from groups ORDER BY name;";
 	private String GET_GROUP = "SELECT * from GROUPS where name = ?;";
 	private String UPDATE_GROUP = "UPDATE GROUPS SET name = ?, year = ? where name = ?;";
 	private String DELETE_GROUP_BY_NAME = "DELETE FROM GROUPS WHERE name = ?;";

@@ -6,6 +6,7 @@ import dao.SubjectDAO;
 
 public class Subject extends BaseObject<SubjectDAO>implements Printable {
 
+	private int subjectID;
 	private String name;
 
 	public Subject(Map<String, Object> params) {

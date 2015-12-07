@@ -8,6 +8,7 @@ import dao.TeacherDAO;
 
 public class Teacher extends BaseObject<TeacherDAO>implements Printable {
 
+	private int teacherID;
 	private String name;
 	private Subject subject;
 

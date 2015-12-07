@@ -8,6 +8,7 @@ import dao.StudentDAO;
 
 public class Student extends BaseObject<StudentDAO>implements Printable {
 
+	private int studentID;
 	private String name;
 	private Group group;
 

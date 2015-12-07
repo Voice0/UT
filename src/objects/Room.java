@@ -6,6 +6,7 @@ import dao.RoomDAO;
 
 public class Room extends BaseObject<RoomDAO>implements Printable {
 
+	private int roomID;
 	private String number;
 
 	public Room(Map<String, Object> params) {

@@ -6,6 +6,7 @@ import dao.GroupDAO;
 
 public class Group extends BaseObject<GroupDAO>implements Printable {
 
+	private int groupID;
 	private String name;
 	private int year;
 
