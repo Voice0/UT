@@ -54,7 +54,7 @@
 		 		out.println("<td align=\"center\">" + lecture.getDatetime() + "</td>");
 		 		out.println("<td align=\"center\">" + lecture.getGroup().getName() + "</td>");
 		 		out.println("<td align=\"center\">" + lecture.getRoom().getNumber() + "</td>");
-		 		out.println("<td align=\"center\">" + lecture.getTeacher().getSubject().getName() + "</td>");
+		 		out.println("<td align=\"center\">" + lecture.getSubject().getName() + "</td>");
 		 		out.println("<td align=\"center\">" + lecture.getTeacher().getName() + "</td>");
 		 		out.println("<td align=\"center\">" + "<a href=" + "/UT/lecture?crud=editform&lectureid=" + lecture.getId() + ">edit</a>" + "</td>");
 		 		out.println("<td align=\"center\">" + "<a href=" + "/UT/lecture?crud=delete&lectureid=" + lecture.getId() + ">delete</a>" + "</td>");

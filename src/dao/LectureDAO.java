@@ -166,7 +166,7 @@ public class LectureDAO extends BaseDAO {
 		String newGroupName = (String) params.get(Constants.GROUPNAME);
 		String newRoomNumber = (String) params.get(Constants.ROOMNUMBER);
 		String newTeacherName = (String) params.get(Constants.TEACHERNAME);
-		String newSubjectName = (String) teacherDAO.getTeachersSubject(newTeacherName).getName();
+		String newSubjectName = (String) params.get(Constants.SUBJECTNAME);;
 		int id = Integer.parseInt((String) params.get(Constants.LECTUREID));
 		Connection connection = DBConnectionUtil.getConnection();
 		PreparedStatement preparedStatement = null;

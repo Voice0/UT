@@ -15,36 +15,29 @@ import org.apache.log4j.Logger;
 
 import objects.Constants;
 import objects.Printable;
-import objects.Subject;
 import objects.Teacher;
 
 public class TeacherDAO extends BaseDAO {
 
 	private static Logger log = LogManager.getLogger(TeacherDAO.class);
-	private String CREATE_TEACHER = "INSERT INTO teachers (name, subjects) SELECT ?, subjects.id FROM subjects "
-			+ "WHERE subjects.name = ?;";
-	private String GET_ALL_TEACHERS = "SELECT teachers.id, teachers.name, subjects.name from teachers, subjects "
-			+ "where teachers.subjects = subjects.id;";
-	private String GET_TEACHER_BY_NAME = "SELECT teachers.id, teachers.name, subjects.name from teachers, subjects "
-			+ "where teachers.name = ? and teachers.subjects = subjects.id;";
-	private String GET_TEACHERS_SUBJECT = "SELECT subjects.id, subjects.name from teachers, subjects where "
-			+ "teachers.name = ? and teachers.subjects = subjects.id;";
-	private String UPDATE_TEACHER = "UPDATE teachers SET name = ?, subjects = (SELECT subjects.id "
-			+ "FROM subjects WHERE subjects.name = ?) WHERE teachers.name = ?;";
-	private String DELETE_TEACHER_BY_NAME = "DELETE FROM teachers where name = ?";
+	private String CREATE_TEACHER = "INSERT INTO teachers (name) VALUES (?);";
+	private String GET_ALL_TEACHERS = "SELECT * FROM teachers ORDER BY name;";
+	private String GET_TEACHER = "SELECT * FROM teachers WHERE name = ?";
+//	private String GET_TEACHERS_SUBJECT = "SELECT subjects.id, subjects.name from teachers, subjects where "
+//			+ "teachers.name = ? and teachers.subjects = subjects.id;";
+	private String UPDATE_TEACHER = "UPDATE teachers SET name = ? WHERE name = ?;";
+	private String DELETE_TEACHER = "DELETE FROM teachers where name = ?";
 
 	public int createObject(Map<String, Object> params) throws DaoException {
 		log.info("Entered to createTeacher");
 		int response = -1;
-		String teacherName = (String) params.get(Constants.TEACHERNAME);
-		String subjectName = (String) params.get(Constants.SUBJECTNAME);
+		String name = (String) params.get(Constants.TEACHERNAME);
 		Connection connection = DBConnectionUtil.getConnection();
 		PreparedStatement preparedStatement = null;
 		try {
 			log.info("Creating prepared statement for: " + CREATE_TEACHER);
 			preparedStatement = connection.prepareStatement(CREATE_TEACHER);
-			preparedStatement.setString(1, teacherName);
-			preparedStatement.setString(2, subjectName);
+			preparedStatement.setString(1, name);
 			response = preparedStatement.executeUpdate();
 			log.debug(String.format("Got response: %s", response));
 		} catch (SQLException e) {
@@ -104,22 +97,21 @@ public class TeacherDAO extends BaseDAO {
 	private Teacher createNewTeacherByParams(ResultSet resultset) throws SQLException {
 		Map<String, Object> params = new HashMap<>();
 		params.put(Constants.TEACHERNAME, resultset.getString(2));
-		params.put(Constants.SUBJECTNAME, resultset.getString(3));
 		Teacher teacher = new Teacher(params);
 		return teacher;
 	}
 
 	public Printable getObject(Map<String, Object> params) throws DaoException {
-		log.info("Entered to getTeacherByName");
-		String teacherName = (String) params.get(Constants.TEACHERNAME);
+		log.info("Entered to getTeacher");
+		String name = (String) params.get(Constants.TEACHERNAME);
 		Teacher teacher = null;
 		Connection connection = DBConnectionUtil.getConnection();
 		PreparedStatement preparedStatement = null;
 		ResultSet resultset = null;
 		try {
-			log.info("Creating statement for: " + GET_TEACHER_BY_NAME);
-			preparedStatement = connection.prepareStatement(GET_TEACHER_BY_NAME);
-			preparedStatement.setString(1, teacherName);
+			log.info("Creating prepared statement for: " + GET_TEACHER);
+			preparedStatement = connection.prepareStatement(GET_TEACHER);
+			preparedStatement.setString(1, name);
 			resultset = preparedStatement.executeQuery();
 			log.debug("resultset is: " + (resultset.isBeforeFirst() ? "not empty" : "empty"));
 			while (resultset.next()) {
@@ -147,58 +139,56 @@ public class TeacherDAO extends BaseDAO {
 		return teacher;
 	}
 
-	public Subject getTeachersSubject(String teacherName) throws DaoException {
-		log.info("Entered to getTeachersSubject");
-		Subject subject = null;
-		Connection connection = DBConnectionUtil.getConnection();
-		PreparedStatement preparedStatement = null;
-		ResultSet resultset = null;
-		SubjectDAO subjectdao = new SubjectDAO();
-		try {
-			log.info("Creating statement for: " + GET_TEACHERS_SUBJECT);
-			preparedStatement = connection.prepareStatement(GET_TEACHERS_SUBJECT);
-			preparedStatement.setString(1, teacherName);
-			resultset = preparedStatement.executeQuery();
-			log.debug("resultset is: " + (resultset.isBeforeFirst() ? "not empty" : "empty"));
-			while (resultset.next()) {
-				subject = subjectdao.createNewSubjectByParams(resultset);
-			}
-		} catch (SQLException e) {
-			throw new DaoException("Unable to execute statement.", e);
-		} finally {
-			try {
-				DBConnectionUtil.closeResultset(resultset);
-			} catch (SQLException e) {
-				log.error(e.getMessage());
-			}
-			try {
-				DBConnectionUtil.closePreparedStatement(preparedStatement);
-			} catch (SQLException e) {
-				log.error(e.getMessage());
-			}
-			try {
-				DBConnectionUtil.closeConnectionToDB(connection);
-			} catch (SQLException e) {
-				log.error(e.getMessage());
-			}
-		}
-		return subject;
-	}
+//	public Subject getTeachersSubject(String teacherName) throws DaoException {
+//		log.info("Entered to getTeachersSubject");
+//		Subject subject = null;
+//		Connection connection = DBConnectionUtil.getConnection();
+//		PreparedStatement preparedStatement = null;
+//		ResultSet resultset = null;
+//		SubjectDAO subjectdao = new SubjectDAO();
+//		try {
+//			log.info("Creating statement for: " + GET_TEACHERS_SUBJECT);
+//			preparedStatement = connection.prepareStatement(GET_TEACHERS_SUBJECT);
+//			preparedStatement.setString(1, teacherName);
+//			resultset = preparedStatement.executeQuery();
+//			log.debug("resultset is: " + (resultset.isBeforeFirst() ? "not empty" : "empty"));
+//			while (resultset.next()) {
+//				subject = subjectdao.createNewSubjectByParams(resultset);
+//			}
+//		} catch (SQLException e) {
+//			throw new DaoException("Unable to execute statement.", e);
+//		} finally {
+//			try {
+//				DBConnectionUtil.closeResultset(resultset);
+//			} catch (SQLException e) {
+//				log.error(e.getMessage());
+//			}
+//			try {
+//				DBConnectionUtil.closePreparedStatement(preparedStatement);
+//			} catch (SQLException e) {
+//				log.error(e.getMessage());
+//			}
+//			try {
+//				DBConnectionUtil.closeConnectionToDB(connection);
+//			} catch (SQLException e) {
+//				log.error(e.getMessage());
+//			}
+//		}
+//		return subject;
+//	}
 
 	public int updateObject(Map<String, Object> params) throws DaoException {
-		log.info("Entered to updateTeacherNameByName");
+		log.info("Entered to updateTeacher");
 		int response = -1;
-		String newName = (String) params.get(Constants.NEW_TEACHERNAME);
-		String newSubject = (String) params.get(Constants.SUBJECTNAME);
-		String oldName = (String) params.get(Constants.TEACHERNAME);
+		String newValue = (String) params.get(Constants.NEW_TEACHERNAME);
+		String oldValue = (String) params.get(Constants.TEACHERNAME);
 		Connection connection = DBConnectionUtil.getConnection();
 		PreparedStatement preparedStatement = null;
 		try {
-			log.info("Creating statement for: " + UPDATE_TEACHER);
+			log.info("Creating prepared statement for: " + UPDATE_TEACHER);
 			preparedStatement = connection.prepareStatement(UPDATE_TEACHER);
-			preparedStatement.setString(1, newName);
-			preparedStatement.setString(2, newSubject);
-			preparedStatement.setString(3, oldName);
+			preparedStatement.setString(1, newValue);
+			preparedStatement.setString(2, oldValue);
 			response = preparedStatement.executeUpdate();
 			log.debug(String.format("Got response: %s", response));
 		} catch (SQLException e) {
@@ -225,8 +215,8 @@ public class TeacherDAO extends BaseDAO {
 		Connection connection = DBConnectionUtil.getConnection();
 		PreparedStatement preparedStatement = null;
 		try {
-			log.info("Creating statement for: " + DELETE_TEACHER_BY_NAME);
-			preparedStatement = connection.prepareStatement(DELETE_TEACHER_BY_NAME);
+			log.info("Creating statement for: " + DELETE_TEACHER);
+			preparedStatement = connection.prepareStatement(DELETE_TEACHER);
 			preparedStatement.setString(1, teacherName);
 			response = preparedStatement.executeUpdate();
 			log.debug(String.format("Got response: %s", response));

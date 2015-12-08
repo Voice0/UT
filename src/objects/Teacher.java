@@ -10,18 +10,18 @@ public class Teacher extends BaseObject<TeacherDAO>implements Printable {
 
 	private int teacherID;
 	private String name;
-	private Subject subject;
+//	private Subject subject;
 
 	public Teacher(Map<String, Object> params) {
 		super();
 		setDao(new TeacherDAO());
 		this.name = (String) params.get(Constants.TEACHERNAME);
-		SubjectDAO subjectdao = new SubjectDAO();
-		try {
-			this.subject = (Subject) subjectdao.getObject(params);
-		} catch (DaoException e) {
-			e.printStackTrace();
-		}
+//		SubjectDAO subjectdao = new SubjectDAO();
+//		try {
+//			this.subject = (Subject) subjectdao.getObject(params);
+//		} catch (DaoException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public Teacher() {
@@ -36,12 +36,12 @@ public class Teacher extends BaseObject<TeacherDAO>implements Printable {
 		this.name = name;
 	}
 
-	public Subject getSubject() {
-		return subject;
-	}
-
-	public void setSubject(Subject subject) {
-		this.subject = subject;
-	}
+//	public Subject getSubject() {
+//		return subject;
+//	}
+//
+//	public void setSubject(Subject subject) {
+//		this.subject = subject;
+//	}
 
 }

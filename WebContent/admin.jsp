@@ -14,6 +14,7 @@
 	<tr><td><form action="student" method ="GET"><button type="submit" name="crud" value="getall" style="width:150Px">Student</button></form></td></tr>
 	<tr><td><form action="teacher" method ="GET"><button type="submit" name="crud" value=getall style="width:150Px">Teacher</button></form></td></tr>
 	<tr><td><form action="subject" method ="GET"><button type="submit" name="crud" value="getall" style="width:150Px">Subject</button></form></td></tr>
+	<tr><td><form action="teacherandsubject" method ="GET"><button type="submit" name="crud" value="getall" style="width:330Px">TeacherAndSubject</button></form></td></tr>
 	<tr><td><form action="room" method ="GET"><button type="submit" name="crud" value="getall" style="width:150Px">Room</button></form></td></tr>
 	<tr><td><form action="lecture" method ="GET"><button type="submit" name="crud" value="getall" style="width:150Px">Lecture</button></form></td></tr>
 	</table>		

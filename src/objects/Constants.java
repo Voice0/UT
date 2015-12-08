@@ -20,5 +20,7 @@ public class Constants {
 
 	public static final String DATETIME = "datetime";
 	public static final String LECTUREID = "lectureid";
+	
+	public static final String TEACHER_AND_SUBJECT_ID = "teacherandsubjectid";
 
 }

@@ -43,7 +43,6 @@
 			for(Teacher teacher : teacherlist) {
 				out.println("<tr>");	
 		 		out.println("<td align=\"center\">" + teacher.getName() + "</td>");
-		 		out.println("<td align=\"center\">" + teacher.getSubject().getName() + "</td>");
 		 		out.println("<td align=\"center\">" + "<a href=" + "/UT/teacher?crud=editform&teachername=" + teacher.getName() + ">edit</a>" + "</td>");
 		 		out.println("<td align=\"center\">" + "<a href=" + "/UT/teacher?crud=delete&teachername=" + teacher.getName() + ">delete</a>" + "</td>");
 		    	out.println("</tr>");
@@ -81,7 +80,6 @@
 			if("editform".equals(type)){
 				Teacher teacher = (Teacher) request.getAttribute("Object");
 				String teachername = teacher.getName();
-				String teacherssubjectname = teacher.getSubject().getName();
 				out.println("<td valign=\"top\">");
 				out.println("<form action=\"teacher\" method =\"GET\">");
 				out.println("<table>");
@@ -92,9 +90,6 @@
 				out.println("</tr><tr>");
 				out.println("<td>Subject:</td>");				
 				out.println("<td><select name=\"subjectname\">");
-				for(Subject subjectForUpdating : subjectlist) {
-					out.println("<option value=" + subjectForUpdating.getName() + ">" + subjectForUpdating.getName() + "</option>");
-				}
 				out.println("</select></td>");
 				out.println("<td></td>");
 				out.println("</tr><tr>");

@@ -21,7 +21,7 @@ public class Lecture extends BaseObject<LectureDAO>implements Printable {
 	public Lecture(Map<String, Object> params) {
 		super();
 		setDao(new LectureDAO());
-		if (params.get(Constants.YEAR) != null) {
+		if (params.get(Constants.LECTUREID) != null) {
 			this.id = (int) params.get(Constants.LECTUREID);
 		}
 		this.datetime = (String) params.get(Constants.DATETIME);
