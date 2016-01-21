@@ -74,5 +74,11 @@ public class SubjectServlet extends BaseServlet {
 		int result = baseObject.deleteObject();
 		return result;
 	}
-
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String teacherName = request.getParameter("showRegionForInsert");
+		teacherName = teacherName + 1;
+		
+	}
+//showRegionForInsert
 }
