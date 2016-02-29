@@ -8,7 +8,7 @@ import dao.StudentDAO;
 
 public class Student extends BaseObject<StudentDAO>implements Printable {
 
-	private int studentID;
+	private int studentID;	
 	private String name;
 	private Group group;
 
@@ -22,6 +22,14 @@ public class Student extends BaseObject<StudentDAO>implements Printable {
 		} catch (DaoException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int getStudentID() {
+		return studentID;
+	}
+
+	public void setStudentID(int studentID) {
+		this.studentID = studentID;
 	}
 
 	public String getName() {

@@ -21,9 +21,6 @@ import objects.TeacherAndSubject;
 public class TeacherAndSubjectServlet extends BaseServlet {
 	
 	private static final long serialVersionUID = 1L;
-	public static final String TEACHER_AND_SUBJECT_ID = "teacherandsubjectid";
-	public static final String TEACHERNAME = "teachername";
-	public static final String SUBJECTNAME = "subjectname";
 
     public TeacherAndSubjectServlet() {
 		super();
@@ -67,23 +64,23 @@ public class TeacherAndSubjectServlet extends BaseServlet {
 
 	public Printable createEditForm(HttpServletRequest request, HttpServletResponse response) {
 		getParams().clear();
-		getParams().put(Constants.TEACHER_AND_SUBJECT_ID, request.getParameter(TEACHER_AND_SUBJECT_ID));
+		getParams().put(Constants.TEACHER_AND_SUBJECT_ID, request.getParameter(Constants.TEACHER_AND_SUBJECT_ID));
 		Printable result = baseObject.createEditForm();
 		return result;
 	}
 
 	public int editObject(HttpServletRequest request, HttpServletResponse response) {
 		getParams().clear();
-		getParams().put(Constants.TEACHERNAME, request.getParameter(TEACHERNAME));
-		getParams().put(Constants.SUBJECTNAME, request.getParameter(SUBJECTNAME));
-		getParams().put(Constants.TEACHER_AND_SUBJECT_ID, request.getParameter(TEACHER_AND_SUBJECT_ID));
+		getParams().put(Constants.TEACHERNAME, request.getParameter(Constants.TEACHERNAME));
+		getParams().put(Constants.SUBJECTNAME, request.getParameter(Constants.SUBJECTNAME));
+		getParams().put(Constants.TEACHER_AND_SUBJECT_ID, request.getParameter(Constants.TEACHER_AND_SUBJECT_ID));
 		int result = baseObject.editObject();
 		return result;
 	}
 
 	public int deleteObject(HttpServletRequest request, HttpServletResponse response) {
 		getParams().clear();
-		getParams().put(Constants.TEACHER_AND_SUBJECT_ID, request.getParameter(TEACHER_AND_SUBJECT_ID));
+		getParams().put(Constants.TEACHER_AND_SUBJECT_ID, request.getParameter(Constants.TEACHER_AND_SUBJECT_ID));
 		int result = baseObject.deleteObject();
 		return result;
 	}

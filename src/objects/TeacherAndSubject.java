@@ -1,5 +1,7 @@
 package objects;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import dao.DaoException;
@@ -49,6 +51,27 @@ public class TeacherAndSubject extends BaseObject<TeacherAndSubjectDAO>implement
 	}
 	public void setSubject(Subject subject) {
 		this.subject = subject;
+	}
+	
+	public List<Subject> getTeacherSubjectList (String teacherName){
+		TeacherAndSubjectDAO tsDAO = new TeacherAndSubjectDAO();
+		List<Subject> tsList = null;
+		try {
+			tsList = tsDAO.getTeacherSubjects(teacherName);
+		} catch (DaoException e) {
+	
+			e.printStackTrace();
+		}
+		return tsList;
+	}
+	
+	public Map<String, List<Subject>> getMap (){
+		Map<String, List<Subject>> map = new HashMap<String, List<Subject>>();		
+		map.put("teacher1", getTeacherSubjectList("teacher1"));
+		map.put("teacher2", getTeacherSubjectList("teacher2"));
+		map.put("teacher3", getTeacherSubjectList("teacher3"));
+		map.put("teacher4", getTeacherSubjectList("teacher4"));
+		return map;
 	}
 
 }

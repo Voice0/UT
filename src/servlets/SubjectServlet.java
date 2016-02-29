@@ -18,8 +18,6 @@ import objects.Subject;
 public class SubjectServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 1L;
-	public static final String SUBJECTNAME = "subjectname";
-	public static final String NEW_SUBJECTNAME = "newsubjectname";
 
 	public SubjectServlet() {
 		super();
@@ -55,22 +53,22 @@ public class SubjectServlet extends BaseServlet {
 
 	public Printable createEditForm(HttpServletRequest request, HttpServletResponse response) {
 		getParams().clear();
-		getParams().put(Constants.SUBJECTNAME, request.getParameter(SUBJECTNAME));
+		getParams().put(Constants.SUBJECTNAME, request.getParameter(Constants.SUBJECTNAME));
 		Printable result = baseObject.createEditForm();
 		return result;
 	}
 
 	public int editObject(HttpServletRequest request, HttpServletResponse response) {
 		getParams().clear();
-		getParams().put(Constants.NEW_SUBJECTNAME, request.getParameter(NEW_SUBJECTNAME));
-		getParams().put(Constants.SUBJECTNAME, request.getParameter(SUBJECTNAME));
+		getParams().put(Constants.NEW_SUBJECTNAME, request.getParameter(Constants.NEW_SUBJECTNAME));
+		getParams().put(Constants.SUBJECTNAME, request.getParameter(Constants.SUBJECTNAME));
 		int result = baseObject.editObject();
 		return result;
 	}
 
 	public int deleteObject(HttpServletRequest request, HttpServletResponse response) {
 		getParams().clear();
-		getParams().put(Constants.SUBJECTNAME, request.getParameter(SUBJECTNAME));
+		getParams().put(Constants.SUBJECTNAME, request.getParameter(Constants.SUBJECTNAME));
 		int result = baseObject.deleteObject();
 		return result;
 	}

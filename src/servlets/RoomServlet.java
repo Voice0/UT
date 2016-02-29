@@ -18,8 +18,6 @@ import objects.Room;
 public class RoomServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 1L;
-	public static final String ROOMNUMBER = "roomnumber";
-	public static final String NEW_ROOMNUMBER = "newroomnumber";
 
 	public RoomServlet() {
 		super();
@@ -55,22 +53,22 @@ public class RoomServlet extends BaseServlet {
 
 	public Printable createEditForm(HttpServletRequest request, HttpServletResponse response) {
 		getParams().clear();
-		getParams().put(Constants.ROOMNUMBER, request.getParameter(ROOMNUMBER));
+		getParams().put(Constants.ROOMNUMBER, request.getParameter(Constants.ROOMNUMBER));
 		Printable result = baseObject.createEditForm();
 		return result;
 	}
 
 	public int editObject(HttpServletRequest request, HttpServletResponse response) {
 		getParams().clear();
-		getParams().put(Constants.NEW_ROOMNUMBER, request.getParameter(NEW_ROOMNUMBER));
-		getParams().put(Constants.ROOMNUMBER, request.getParameter(ROOMNUMBER));
+		getParams().put(Constants.NEW_ROOMNUMBER, request.getParameter(Constants.NEW_ROOMNUMBER));
+		getParams().put(Constants.ROOMNUMBER, request.getParameter(Constants.ROOMNUMBER));
 		int result = baseObject.editObject();
 		return result;
 	}
 
 	public int deleteObject(HttpServletRequest request, HttpServletResponse response) {
 		getParams().clear();
-		getParams().put(Constants.ROOMNUMBER, request.getParameter(ROOMNUMBER));
+		getParams().put(Constants.ROOMNUMBER, request.getParameter(Constants.ROOMNUMBER));
 		int result = baseObject.deleteObject();
 		return result;
 	}

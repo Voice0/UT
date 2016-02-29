@@ -71,7 +71,7 @@
 			out.println("</select></td>");
 			out.println("<td></td>");
 			out.println("</tr><tr><td></td>");			
-			out.println("<td><button type=\"submit\" name=\"crud\" value=\"addobject\" style=\"width:100Px\">Add student</button></td>");
+			out.println("<td><button type=\"submit\" name=\"crud\" value=\"addobject\" style=\"width:200Px\">Add student</button></td>");
 			out.println("</tr>");
 			out.println("</table>");
 			out.println("</form>");
@@ -92,6 +92,7 @@
 				out.println("</tr><tr>");
 				out.println("<td>Group:</td>");				
 				out.println("<td><select name=\"groupname\">");
+				out.println("<option selected value=" + studentsgroupname + ">" + studentsgroupname + "</option>");
 				for(Group groupForUpdating : grouplist) {
 					out.println("<option value=" + groupForUpdating.getName() + ">" + groupForUpdating.getName() + "</option>");
 				}
@@ -100,7 +101,7 @@
 				out.println("</tr><tr>");
 				out.println("<td><input type=\"hidden\" name=\"studentname\" Value=" + studentname + "></td> ");
 				out.println("<td><input type=\"hidden\" name=\"crud\" Value=\"editobject\"></td> ");
-				out.println("<td><button type=\"submit\" name=\"objecttype\" value=\"student\">Save</button></td> ");
+				out.println("<tr><td></td><td><button type=\"submit\" name=\"objecttype\" value=\"student\">Save</button></td></tr> ");
 				out.println("</tr>");
 				out.println("</table>");
 				out.println("</form>");

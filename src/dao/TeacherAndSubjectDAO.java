@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 
 import objects.Constants;
 import objects.Printable;
+import objects.Subject;
 import objects.TeacherAndSubject;
 
 public class TeacherAndSubjectDAO extends BaseDAO {
@@ -26,7 +27,7 @@ public class TeacherAndSubjectDAO extends BaseDAO {
 	private String GET_ALL_TEACHER_AND_SUBJECT = "SELECT teacher_and_subject.id, teachers.name, subjects.name "
 			+ "FROM teacher_and_subject, teachers, subjects "
 			+ "WHERE teacher_and_subject.teacher = teachers.id "
-			+ "and teacher_and_subject.subject = subjects.id ORDER BY teachers.name;";
+			+ "and teacher_and_subject.subject = subjects.id ORDER BY teachers.name, subjects.name;";
 	private String GET_TEACHER_AND_SUBJECT = "SELECT teacher_and_subject.id, teachers.name, subjects.name "
 			+ "from teacher_and_subject, teachers, subjects where teacher_and_subject.id = ? "
 			+ "and teacher_and_subject.teacher = teachers.id and teacher_and_subject.subject = subjects.id;";
@@ -35,6 +36,10 @@ public class TeacherAndSubjectDAO extends BaseDAO {
 			+ "subject = (SELECT subjects.id FROM subjects WHERE subjects.name = ?) "
 			+ "WHERE teacher_and_subject.id = ?;";
 	private String DELETE_TEACHER_AND_SUBJECT = "DELETE FROM teacher_and_subject where id = ?;";
+	private String GET_TEACHER_SUBJECTS = "SELECT teacher_and_subject.id, subjects.name " 
+			+ "FROM teacher_and_subject, teachers, subjects "
+			+ "WHERE teacher_and_subject.teacher = teachers.id and teacher_"
+			+ "and_subject.subject = subjects.id and teachers.name = ?";
 	
 	public int createObject(Map<String, Object> params) throws DaoException{
 		log.info("Entered to createTeacherAndSubject");
@@ -64,6 +69,45 @@ public class TeacherAndSubjectDAO extends BaseDAO {
 			}
 		}
 		return response;
+	}
+	
+	public List<Subject> getTeacherSubjects(String teacherName) throws DaoException{
+		log.info("Entered to getTeacherSubjects");
+		List<Subject> result = new ArrayList<Subject>();
+		Connection connection = DBConnectionUtil.getConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet resultset = null;
+		try {
+			log.info("Creating statement for: " + GET_TEACHER_SUBJECTS);
+			preparedStatement = connection.prepareStatement(GET_TEACHER_SUBJECTS);
+			preparedStatement.setString(1, teacherName);
+			resultset = preparedStatement.executeQuery();
+			log.debug("resultset is: " + (resultset.isBeforeFirst() ? "not empty" : "empty"));	
+			SubjectDAO subjectDao = new SubjectDAO();
+			while (resultset.next()) {
+				Subject subject = subjectDao.createNewSubjectByParams(resultset);
+				result.add(subject);
+			}
+		} catch (SQLException e) {
+			throw new DaoException("Unable to execute statement.", e);
+		} finally {
+			try {
+				DBConnectionUtil.closeResultset(resultset);
+			} catch (SQLException e) {
+				log.error(e.getMessage());
+			}
+			try {
+				DBConnectionUtil.closeStatement(preparedStatement);
+			} catch (SQLException e) {
+				log.error(e.getMessage());
+			}
+			try {
+				DBConnectionUtil.closeConnectionToDB(connection);
+			} catch (SQLException e) {
+				log.error(e.getMessage());
+			}
+		}
+		return result;
 	}
 
 	public List<Printable> getAllObjects() throws DaoException{

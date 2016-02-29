@@ -18,9 +18,6 @@ import objects.Printable;
 public class GroupServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 1L;
-	public static final String GROUPNAME = "groupname";
-	public static final String NEW_GROUPNAME = "newgroupname";
-	public static final String YEAR = "year";
 
 	public GroupServlet() {
 		super();
@@ -60,23 +57,23 @@ public class GroupServlet extends BaseServlet {
 
 	public Printable createEditForm(HttpServletRequest request, HttpServletResponse response) {
 		getParams().clear();
-		getParams().put(Constants.GROUPNAME, request.getParameter(GROUPNAME));
+		getParams().put(Constants.GROUPNAME, request.getParameter(Constants.GROUPNAME));
 		Printable result = baseObject.createEditForm();
 		return result;
 	}
 
 	public int editObject(HttpServletRequest request, HttpServletResponse response) {
 		getParams().clear();
-		getParams().put(Constants.NEW_GROUPNAME, request.getParameter(NEW_GROUPNAME));
-		getParams().put(Constants.GROUPNAME, request.getParameter(GROUPNAME));
-		getParams().put(Constants.YEAR, Integer.parseInt(request.getParameter(YEAR)));
+		getParams().put(Constants.NEW_GROUPNAME, request.getParameter(Constants.NEW_GROUPNAME));
+		getParams().put(Constants.GROUPNAME, request.getParameter(Constants.GROUPNAME));
+		getParams().put(Constants.YEAR, Integer.parseInt(request.getParameter(Constants.YEAR)));
 		int result = baseObject.editObject();
 		return result;
 	}
 
 	public int deleteObject(HttpServletRequest request, HttpServletResponse response) {
 		getParams().clear();
-		getParams().put(Constants.GROUPNAME, request.getParameter(GROUPNAME));
+		getParams().put(Constants.GROUPNAME, request.getParameter(Constants.GROUPNAME));
 		int result = baseObject.deleteObject();
 		return result;
 	}

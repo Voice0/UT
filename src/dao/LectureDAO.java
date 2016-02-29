@@ -21,13 +21,13 @@ public class LectureDAO extends BaseDAO {
 
 	private static Logger log = LogManager.getLogger(LectureDAO.class);
 	TeacherDAO teacherDAO = new TeacherDAO();
-	private String CREATE_LECTURE = "INSERT INTO lectures (datetime, groups, rooms, subjects, teachers) "
-			+ "SELECT ?, groups.id, rooms.id, teachers.subjects, teachers.id FROM groups, rooms, subjects, teachers "
-			+ "WHERE groups.name = ? and rooms.number = ? and subjects.id = teachers.subjects and teachers.name = ?;";
+	private String CREATE_LECTURE = "INSERT INTO lectures (datetime, groups, rooms, subjects, teachers) " 
+			+ "SELECT ?, groups.id, rooms.id, subjects.id, teachers.id FROM groups, rooms, subjects, teachers "
+			+ "WHERE groups.name = ? and rooms.number = ? and subjects.name = ? and teachers.name = ?;";
 	private String GET_ALL_LECTURES = "SELECT lectures.id, lectures.datetime, groups.name, groups.year, "
 			+ "rooms.number, subjects.name, teachers.name from lectures, groups, rooms, subjects, teachers "
 			+ "where lectures.groups = groups.id and lectures.rooms = rooms.id and "
-			+ "lectures.subjects = subjects.id and lectures.teachers = teachers.id;";
+			+ "lectures.subjects = subjects.id and lectures.teachers = teachers.id ORDER BY lectures.datetime;";
 	private String GET_LECTURE_BY_ID = "SELECT lectures.id, lectures.datetime, groups.name, groups.year, rooms.number, subjects.name, teachers.name "
 			+ "from lectures, groups, rooms, subjects, teachers where lectures.id = ? and lectures.groups = groups.id "
 			+ "and lectures.rooms = rooms.id and lectures.subjects = subjects.id and lectures.teachers = teachers.id;";
@@ -43,6 +43,7 @@ public class LectureDAO extends BaseDAO {
 		String groupName = (String) params.get(Constants.GROUPNAME);
 		String roomNumber = (String) params.get(Constants.ROOMNUMBER);
 		String teacherName = (String) params.get(Constants.TEACHERNAME);
+		String subjectName = (String) params.get(Constants.SUBJECTNAME);
 		Connection connection = DBConnectionUtil.getConnection();
 		PreparedStatement preparedStatement = null;
 		try {
@@ -51,7 +52,8 @@ public class LectureDAO extends BaseDAO {
 			preparedStatement.setString(1, datetime);
 			preparedStatement.setString(2, groupName);
 			preparedStatement.setString(3, roomNumber);
-			preparedStatement.setString(4, teacherName);
+			preparedStatement.setString(4, subjectName);
+			preparedStatement.setString(5, teacherName);
 			response = preparedStatement.executeUpdate();
 			log.debug(String.format("Got response: %s", response));
 		} catch (SQLException e) {

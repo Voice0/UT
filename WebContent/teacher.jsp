@@ -43,6 +43,7 @@
 			for(Teacher teacher : teacherlist) {
 				out.println("<tr>");	
 		 		out.println("<td align=\"center\">" + teacher.getName() + "</td>");
+		 		//out.println("<td align=\"center\">" + teacher.getSubject().getName() + "</td>");
 		 		out.println("<td align=\"center\">" + "<a href=" + "/UT/teacher?crud=editform&teachername=" + teacher.getName() + ">edit</a>" + "</td>");
 		 		out.println("<td align=\"center\">" + "<a href=" + "/UT/teacher?crud=delete&teachername=" + teacher.getName() + ">delete</a>" + "</td>");
 		    	out.println("</tr>");
@@ -52,7 +53,7 @@
 	</td>
 	
 	<%String type = (String) request.getAttribute("Crud");
-	List<Subject> subjectlist = (ArrayList<Subject>) request.getAttribute("Subjectlist");
+//	List<Subject> subjectlist = (ArrayList<Subject>) request.getAttribute("Subjectlist");
 		if ("addform".equals(type)){			
 			out.println("<td valign=\"top\">");
 			out.println("<form action=\"teacher\" method =\"GET\">");
@@ -62,15 +63,15 @@
 			out.println("<td> Enter name of new teacher:</td>");
 			out.println("<td><input type=\"text\" name=\"teachername\" placeholder=\"Name\" required/></td>");
 			out.println("</tr><tr>");
-			out.println("<td>Select name of subject:</td>");
-			out.println("<td><select name=\"subjectname\">");
-			for(Subject subjectForAdding : subjectlist) {
-				out.println("<option value=" + subjectForAdding.getName() + ">" + subjectForAdding.getName() + "</option>");
-			}
-			out.println("</select></td>");
-			out.println("<td></td>");
+//			out.println("<td>Select name of subject:</td>");
+//			out.println("<td><select name=\"subjectname\">");
+//			for(Subject subjectForAdding : subjectlist) {
+//				out.println("<option value=" + subjectForAdding.getName() + ">" + subjectForAdding.getName() + "</option>");
+//			}
+//			out.println("</select></td>");
+//			out.println("<td></td>");
 			out.println("</tr><tr><td></td>");			
-			out.println("<td><button type=\"submit\" name=\"crud\" value=\"addobject\" style=\"width:100Px\">Add teacher</button></td>");
+			out.println("<td><button type=\"submit\" name=\"crud\" value=\"addobject\" style=\"width:250Px\">Add teacher</button></td>");
 			out.println("</tr>");
 			out.println("</table>");
 			out.println("</form>");
@@ -88,10 +89,13 @@
 				out.println("<td>Name of teacher:</td>");
 				out.println("<td><input type=\"text\" name=\"newteachername\" Value=" + teachername + "></td>");
 				out.println("</tr><tr>");
-				out.println("<td>Subject:</td>");				
-				out.println("<td><select name=\"subjectname\">");
-				out.println("</select></td>");
-				out.println("<td></td>");
+//				out.println("<td>Subject:</td>");				
+//				out.println("<td><select name=\"subjectname\">");
+//				for(Subject subjectForAdding : subjectlist) {
+//					out.println("<option value=" + subjectForAdding.getName() + ">" + subjectForAdding.getName() + "</option>");
+//				}
+//				out.println("</select></td>");
+//				out.println("<td></td>");
 				out.println("</tr><tr>");
 				out.println("<td><input type=\"hidden\" name=\"teachername\" Value=" + teachername + "></td> ");
 				out.println("<td><input type=\"hidden\" name=\"crud\" Value=\"editobject\"></td> ");

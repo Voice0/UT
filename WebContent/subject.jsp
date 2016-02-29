@@ -59,7 +59,7 @@
 			out.println("<td>Enter name of new subject:</td>");
 			out.println("<td><input type=\"text\" name=\"subjectname\" placeholder=\"Name\" required/></td>");
 			out.println("</tr><tr><td></td>");			
-			out.println("<td><button type=\"submit\" name=\"crud\" value=\"addobject\" style=\"width:100Px\">Add subject</button></td>");
+			out.println("<td><button type=\"submit\" name=\"crud\" value=\"addobject\" style=\"width:200Px\">Add subject</button></td>");
 			out.println("</tr>");
 			out.println("</table>");
 			out.println("</form>");

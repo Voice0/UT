@@ -23,7 +23,7 @@ public class StudentDAO extends BaseDAO {
 	private static Logger log = LogManager.getLogger(StudentDAO.class);
 	private String CREATE_STUDENT = "INSERT INTO students (name, group_) SELECT ?, groups.id FROM groups WHERE groups.name = ?;";
 	private String GET_ALL_STUDENTS = "SELECT students.id, students.name, groups.name, groups.year from students,"
-			+ "groups where students.group_ = groups.id;";
+			+ "groups where students.group_ = groups.id ORDER BY students.name;";
 	private String GET_STUDENT = "SELECT students.id, students.name, groups.name, groups.year from students, groups "
 			+ "where students.name = ? and students.group_ = groups.id;";
 	private String GET_STUDENTS_GROUP = "SELECT groups.id groups.name, groups.year from students, groups where "

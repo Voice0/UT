@@ -13,7 +13,7 @@
 	<%@page import="objects.Group"%>
 	<%@page import="objects.Constants"%>
 	
-
+	
 <table cellpadding="1" cellspacing="1">
 	<tr>
 	<td align="center" colspan="2">
@@ -67,7 +67,7 @@
 			out.println("<td><select name=" + Constants.YEAR + "><option value=\"1\">1</option><option value=\"2\">2</option>" +
 						"<option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option></select></td>");
 			out.println("</tr><tr><td></td>");			
-			out.println("<td><button type=\"submit\" name=\"crud\" value=\"addobject\" style=\"width:100Px\">Add group</button></td>");
+			out.println("<td><button type=\"submit\" name=\"crud\" value=\"addobject\" style=\"width:200Px\">Add group</button></td>");
 			out.println("</tr>");
 			out.println("</table>");
 			out.println("</form>");
@@ -86,7 +86,7 @@
 			out.println("<td><input type=\"text\" name=" + Constants.NEW_GROUPNAME + " Value=" + groupname + "></td>");
 			out.println("</tr><tr>");
 			out.println("<td>Year of learning:</td>");
-			out.println("<td><select name=" + Constants.YEAR + "><option value=\"1\">1</option><option value=\"2\">2</option>" +
+			out.println("<td><select name=" + Constants.YEAR + "><option selected value=" + year + ">" + year + "</option><option value=\"1\">1</option><option value=\"2\">2</option>" +
 						"<option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option></select></td>");
 			out.println("</tr><tr>");
 			out.println("<td><input type=\"hidden\" name=" + Constants.GROUPNAME + " Value=" + groupname + ">");

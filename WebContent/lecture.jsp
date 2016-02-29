@@ -15,6 +15,9 @@
 	<%@page import="objects.Teacher"%>
 	<%@page import="objects.Subject"%>
 	<%@page import="objects.Room"%>
+	<%@page import="objects.TeacherAndSubject"%>
+	<%@page import="java.util.HashMap"%>
+	<%@page import="java.util.Map"%>
 
 
 <table cellpadding="1" cellspacing="1">
@@ -68,6 +71,9 @@
 	List<Group> grouplist = (ArrayList<Group>) request.getAttribute("Grouplist");
 	List<Room> roomlist = (ArrayList<Room>) request.getAttribute("Roomlist");
 	List<Teacher> teacherlist = (ArrayList<Teacher>) request.getAttribute("Teacherlist");
+	List<Subject> subjectlist = (ArrayList<Subject>) request.getAttribute("Subjectlist");
+	List<TeacherAndSubject> tslist = (ArrayList<TeacherAndSubject>) request.getAttribute("TeacherAndSubjectlist");
+	Map <String, List<Subject>> tsmap = (HashMap<String, List<Subject>>) request.getAttribute("TeacherAndSubjectMap");
 		if ("addform".equals(type)){			
 			out.println("<td valign=\"top\">");
 			out.println("<form action=\"lecture\" method =\"GET\">");
@@ -96,16 +102,44 @@
 			
 			out.println("<tr>");
 			out.println("<td>Select teacher:</td>");
-			out.println("<td><select name=\"teachername\">");
+			out.println("<td><select onchange=\"document.getElementById('id_1').innerHTML=this.options[this.selectedIndex].value;\" name=\"teachername\">");
+//			out.println("<option disabled selected>Select teacher</option>");
 			for(Teacher teacherForAdding : teacherlist) {
 				out.println("<option value=" + teacherForAdding.getName() + ">" + teacherForAdding.getName() + "</option>");
+			}
+			out.println("</select></td>");	
+			String name = "<div id=\"id_1\"></div>";
+//			out.println("<tr>");	
+//			out.println("<td>Select subject:</td>");		
+//			if (name != null){
+//				System.out.println(name);
+//				List<Subject> list = new ArrayList<Subject>(tsmap.get(name)); 
+//				String s = list.get(0).getName();				
+//				out.println("<td>" + name + "</td>");
+//			}
+//			out.println("</tr>");
+
+//String teachername = "<div id=\"id_1\"></div>)";
+//out.println("<div id=\"id_1\"></div>");
+//out.println("<td><select name=\"roomnumber\">");
+
+//out.println("<select><option value="7138">rfrf</option></select>");
+//out.println(tsmap.get(name).get(0).getName());
+			
+			out.println("<tr>"); // it`s working
+			out.println("<td>Select subject:</td>");
+			out.println("<td><select name=\"subjectname\">");			
+			for(Subject subjectForAdding : subjectlist) {
+				out.println("<option value=" + subjectForAdding.getName() + ">" + subjectForAdding.getName() + "</option>");
 			}
 			out.println("</select></td>");
 			out.println("</tr>");
 			
 			out.println("<td></td>");
+			
+			
 			out.println("</tr><tr><td></td>");			
-			out.println("<td><button type=\"submit\" name=\"crud\" value=\"addobject\" style=\"width:100Px\">Add lecture</button></td>");
+			out.println("<td><button type=\"submit\" name=\"crud\" value=\"addobject\" style=\"width:200Px\">Add lecture</button></td>");
 			out.println("</tr>");
 			out.println("</table>");
 			out.println("</form>");
@@ -119,6 +153,7 @@
 				String groupname = lecture.getGroup().getName();
 				String roomnumber = lecture.getRoom().getNumber();
 				String teachername = lecture.getTeacher().getName();
+				String subjectname = lecture.getSubject().getName();
 				out.println("<td valign=\"top\">");
 				out.println("<form action=\"lecture\" method =\"GET\">");
 				out.println("<table>");
@@ -131,6 +166,7 @@
 				out.println("<tr>");				
 				out.println("<td>Group:</td>");				
 				out.println("<td><select name=\"groupname\">");
+				out.println("<option selected value=" + groupname + ">" + groupname + "</option>");
 				for(Group groupForUpdating : grouplist) {
 					out.println("<option value=" + groupForUpdating.getName() + ">" + groupForUpdating.getName() + "</option>");
 				}
@@ -139,6 +175,7 @@
 				out.println("<tr>");				
 				out.println("<td>Room:</td>");				
 				out.println("<td><select name=\"roomnumber\">");
+				out.println("<option selected value=" + roomnumber + ">" + roomnumber + "</option>");
 				for(Room roomForUpdating : roomlist) {
 					out.println("<option value=" + roomForUpdating.getNumber() + ">" + roomForUpdating.getNumber() + "</option>");
 				}
@@ -147,8 +184,18 @@
 				out.println("<tr>");				
 				out.println("<td>Teacher:</td>");				
 				out.println("<td><select name=\"teachername\">");
+				out.println("<option selected value=" + teachername + ">" + teachername + "</option>");
 				for(Teacher teacherForUpdating : teacherlist) {
 					out.println("<option value=" + teacherForUpdating.getName() + ">" + teacherForUpdating.getName() + "</option>");
+				}
+				out.println("</select></td></tr>");
+				
+				out.println("<tr>");				
+				out.println("<td>Subject:</td>");				
+				out.println("<td><select name=\"subjectname\">");
+				out.println("<option selected value=" + subjectname + ">" + subjectname + "</option>");
+				for(Subject subjectForUpdating : subjectlist) {
+					out.println("<option value=" + subjectForUpdating.getName() + ">" + subjectForUpdating.getName() + "</option>");
 				}
 				out.println("</select></td></tr>");
 				
